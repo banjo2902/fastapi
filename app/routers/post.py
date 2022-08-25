@@ -20,9 +20,9 @@ def get_posts(db: Session = Depends(get_db), current_user: int = Depends(oauth2.
     
     # inner join
     # select posts.*, count(votes.post_id) as total_votes from posts left join votes on posts.id = votes.post_id group by posts.id;
-    posts = db.query(models.Post, func.count(models.Vote.post_id).label("total_votes")).join(models.Vote, models.Vote.post_id == models.Post.id, isouter=True).group_by(models.Post.id).filter(models.Post.title.contains(search)).limit(limit).offset(skip).all()
-
-    return posts
+    # posts = db.query(models.Post, func.count(models.Vote.post_id).label("total_votes")).join(models.Vote, models.Vote.post_id == models.Post.id, isouter=True).group_by(models.Post.id).filter(models.Post.title.contains(search)).limit(limit).offset(skip).all()
+    
+    return {"Message": "Welcome to my API"}
 
 ################create post################
 @router.post("/posts", status_code=status.HTTP_201_CREATED, response_model=schema.PostResponse)
