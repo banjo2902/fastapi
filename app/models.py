@@ -1,4 +1,3 @@
-from tkinter import CASCADE
 from xmlrpc.client import Boolean
 from markupsafe import string
 from sqlalchemy import TIMESTAMP, Column, ForeignKey, Integer, String, Boolean
