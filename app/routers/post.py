@@ -7,7 +7,7 @@ from ..database import engine, get_db
 from typing import List, Optional
 
 router = APIRouter(
-    prefix="/posts",# everything will be appended with this
+    # prefix="/posts",# everything will be appended with this
     tags=["Posts"]
 )
 
@@ -25,7 +25,7 @@ def get_posts(db: Session = Depends(get_db), current_user: int = Depends(oauth2.
     return posts
 
 ################create post################
-@router.post("/", status_code=status.HTTP_201_CREATED, response_model=schema.PostResponse)
+@router.post("/posts", status_code=status.HTTP_201_CREATED, response_model=schema.PostResponse)
 def create_posts(post: schema.PostCreate, db: Session = Depends(get_db), current_user: int = Depends(oauth2.get_current_user)):
     # post_dict = post.dict()
     # post_dict['id'] = randrange(0, 1000000)
@@ -49,7 +49,7 @@ def create_posts(post: schema.PostCreate, db: Session = Depends(get_db), current
 #     post = my_posts[len(my_posts)-1]
 #     return {"latest post": post}
 
-@router.get("/{id}", response_model=schema.PostOut) #{is} is the path parameter // it passes str
+@router.get("/posts/{id}", response_model=schema.PostOut) #{is} is the path parameter // it passes str
 def get_post(id: int, response: Response, db: Session = Depends(get_db), current_user: int = Depends(oauth2.get_current_user)): # add :int to make sure it's int
     # cursor.execute("""SELECT * FROM posts WHERE id = %s""", (str(id)))# 'int' object does not support indexing, so convert it to str
     # post = cursor.fetchone()
@@ -69,7 +69,7 @@ def get_post(id: int, response: Response, db: Session = Depends(get_db), current
     return post
 
 ################delete posts################
-@router.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete("/posts/{id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_post(id: int, db: Session = Depends(get_db), current_user: int = Depends(oauth2.get_current_user)):
     # cursor.execute("""DELETE FROM posts WHERE id = %s RETURNING *""", (str(id),))
     # deleted_post = cursor.fetchone()
@@ -87,7 +87,7 @@ def delete_post(id: int, db: Session = Depends(get_db), current_user: int = Depe
 
     return Response(status_code=status.HTTP_204_NO_CONTENT)
 
-@router.put("/{id}", response_model=schema.PostResponse) 
+@router.put("/posts/{id}", response_model=schema.PostResponse) 
 def update_post(id: int, updated_post: schema.PostUpdate, db: Session = Depends(get_db), current_user: int = Depends(oauth2.get_current_user)): # makes sure the post comes with the right schema. (using the same class as create post)
 
     # cursor.execute("""UPDATE posts SET title = %s, content = %s, published = %s WHERE id = %s RETURNING *""", (post.title, post.content, post.published, str(id), ))
