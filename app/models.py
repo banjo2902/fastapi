@@ -1,5 +1,4 @@
 from xmlrpc.client import Boolean
-from markupsafe import string
 from sqlalchemy import TIMESTAMP, Column, ForeignKey, Integer, String, Boolean
 from sqlalchemy.sql.expression import null, text
 from .database import Base
