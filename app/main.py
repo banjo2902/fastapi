@@ -30,7 +30,7 @@ app.include_router(vote.router)# refer to user router
 
 @app.get("/") # decorator
 def root():
-    return {"message": "welcome to my api!!!"}
+    return {"msg" : "Welcome to my api! To test the api, please type: /docs after the URL. It's a fastapi build-in documentation function power by SwaggerUI."}
 
 # test sqlalchemy
 # @app.get("/sqlalchemy")
